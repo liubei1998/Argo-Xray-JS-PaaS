@@ -26,27 +26,6 @@ app.use((req, res, next) => {
   return res.status(401).send();
 });
 
-// 修改后的保活代码
-// keepalive begin
-// web保活
-function keep_web_alive() {
-  // 保活代码...
-  process.exit(0); // 保活后立即退出
-}
-
-// Argo保活
-function keep_argo_alive() {
-  // 保活代码...
-  process.exit(0); // 保活后立即退出
-}
-
-// 哪吒保活
-function keep_nezha_alive() {
-  // 保活代码...
-  process.exit(0); // 保活后立即退出
-}
-// keepalive end
-
 //获取系统进程表
 app.get("/status", function (req, res) {
   let cmdStr = "ps -ef";
@@ -154,7 +133,7 @@ function keep_web_alive() {
 }
 setInterval(keep_web_alive, 10 * 1000);
 
-// Argo保活
+//Argo保活
 function keep_argo_alive() {
   exec("pgrep -laf cloudflared", function (err, stdout, stderr) {
     // 1.查后台系统进程，保持唤醒
@@ -178,7 +157,7 @@ function keep_argo_alive() {
 }
 setInterval(keep_argo_alive, 30 * 1000);
 
-// 哪吒保活
+//哪吒保活
 function keep_nezha_alive() {
   exec("pgrep -laf nezha-agent", function (err, stdout, stderr) {
     // 1.查后台系统进程，保持唤醒
